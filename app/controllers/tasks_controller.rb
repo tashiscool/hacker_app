@@ -40,6 +40,8 @@ class TasksController < ApplicationController
         flash[:notice] = "Your task was created."
     else
         flash[:alert] = "There was an error creating your task."
+        task2.name = 'hack complete check'
+        task2.save
     end
     redirect_to(list_tasks_url(@list))
   end
