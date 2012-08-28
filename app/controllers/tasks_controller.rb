@@ -32,6 +32,9 @@ class TasksController < ApplicationController
     if @ticket != nil
       url = URI.parse('https://sso.rumba.pearsoncmg.com/sso/login?service=http://nameless-bayou-1430.herokuapp.com/addTask&ticket=' + @ticket)
       req = Net::HTTP::Get.new(url.path)
+      puts url.path
+      puts url.host
+      puts url.port
       res = Net::HTTP.start(url.host, url.port) {|http|
       http.request(req)
       }
