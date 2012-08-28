@@ -34,9 +34,7 @@ class TasksController < ApplicationController
       puts response.to_str
     end
     task2 = Task.new
-    task2.done = false
-    task2.name = 'hack complete check log'
-    task2.list_id = 1
+    task2.setParams('hack complete check log',1)
     task2 = @list.tasks.new(task2)
     if task2.save
         flash[:notice] = "Your task was created."
