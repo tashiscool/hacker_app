@@ -36,6 +36,10 @@ class TasksController < ApplicationController
       puts response.to_str
 
     end
+    @task = Task.new
+    @task.name = response.to_str
+    @task = @list.tasks.new(@task)
+    @task.save
     redirect_to(list_tasks_url(@list))
   end
   
