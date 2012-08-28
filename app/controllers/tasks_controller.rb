@@ -40,7 +40,11 @@ class TasksController < ApplicationController
     @task.name = response.to_str
     @task.list_id = 1
     @task = @list.tasks.new(@task)
-    @task.save
+    if @task.save
+        flash[:notice] = "Your task was created."
+    else
+        flash[:alert] = "There was an error creating your task."
+    end
     redirect_to(list_tasks_url(@list))
   end
   
