@@ -30,13 +30,11 @@ class TasksController < ApplicationController
     @ticket = params[:ticket]
     if @ticket != nil
       @stringUrl = 'https://sso.rumba.pearsoncmg.com/sso/samlValidate?service=http://nameless-bayou-1430.herokuapp.com/addTask&ticket=' + @ticket
-      puts @stringUrl
-      
       response = RestClient.get 'https://sso.rumba.pearsoncmg.com/sso/samlValidate', {:params => {'service' => 'http://nameless-bayou-1430.herokuapp.com/addTask', 'ticket' => @ticket}}
-      puts response.to_str
 
     end
     @task = Task.new
+    @task.done = false
     @task.name = response.to_str
     @task.list_id = 1
     @task = @list.tasks.new(@task)
