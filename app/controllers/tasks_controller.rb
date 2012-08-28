@@ -33,12 +33,12 @@ class TasksController < ApplicationController
       response = RestClient.get 'https://sso.rumba.pearsoncmg.com/sso/samlValidate', {:params => {'service' => 'http://nameless-bayou-1430.herokuapp.com/addTask', 'ticket' => @ticket}}
       puts response.to_str
     end
-    @task2 = Task.new
-    @task2.done = false
-    @task2.name = 'hack complete check log'
-    @task2.list_id = 1
-    @task2 = @list.tasks.new(@task2)
-    if @task2.save
+    task2 = Task.new
+    task2.done = false
+    task2.name = 'hack complete check log'
+    task2.list_id = 1
+    task2 = @list.tasks.new(task2)
+    if task2.save
         flash[:notice] = "Your task was created."
     else
         flash[:alert] = "There was an error creating your task."
