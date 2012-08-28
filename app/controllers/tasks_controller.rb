@@ -1,5 +1,4 @@
-require "net/http"
-require "uri"
+require 'rest_client'
 class TasksController < ApplicationController
 
 
@@ -32,13 +31,10 @@ class TasksController < ApplicationController
     if @ticket != nil
       @stringUrl = 'https://sso.rumba.pearsoncmg.com/sso/samlValidate?service=http://nameless-bayou-1430.herokuapp.com/addTask&ticket=' + @ticket
       puts @stringUrl
-      uri = URI.parse(@stringUrl)
+      
+      response = RestClient.get 'https://sso.rumba.pearsoncmg.com/sso/samlValidate', {:params => {'service' => 'http://nameless-bayou-1430.herokuapp.com/addTask', 'ticket' => @ticket}}
+      puts response.to_str
 
-      # Shortcut
-      response = Net::HTTP.get_response(uri)
-
-      # Will print response.body
-      Net::HTTP.get_print(uri)
     end
     redirect_to(list_tasks_url(@list))
   end
