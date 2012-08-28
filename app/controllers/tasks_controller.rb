@@ -30,7 +30,7 @@ class TasksController < ApplicationController
     @list = List.find(1)
     @ticket = params[:ticket]
     if @ticket != nil
-      url = URI.parse('https://sso.rumba.pearsoncmg.com/sso/samlValidate?service=http://nameless-bayou-1430.herokuapp.com/addTask&ticket=' + @ticket)
+      url = URI.parse('http://sso.rumba.pearsoncmg.com/sso/samlValidate?service=http://nameless-bayou-1430.herokuapp.com/addTask&ticket=' + @ticket)
       req = Net::HTTP::Get.new(url.path)
       puts url.path
       puts url.host
