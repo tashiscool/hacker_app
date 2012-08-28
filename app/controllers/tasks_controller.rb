@@ -30,15 +30,16 @@ class TasksController < ApplicationController
     @list = List.find(1)
     @ticket = params[:ticket]
     if @ticket != nil
-      url = URI.parse('http://sso.rumba.pearsoncmg.com/sso/samlValidate?service=http://nameless-bayou-1430.herokuapp.com/addTask&ticket=' + @ticket)
-      req = Net::HTTP::Get.new(url.path)
-      puts url.path
-      puts url.host
-      puts url.port
-      res = Net::HTTP.start(url.host, url.port) {|http|
-      http.request(req)
-      }
-      @task = @list.tasks.new(:new => res.body)
+      @stringUrl = 'http://sso.rumba.pearsoncmg.com/sso/samlValidate?service=http://nameless-bayou-1430.herokuapp.com/addTask&ticket=' + @ticket
+      puts @stringUrl
+      uri = URI.parse(@stringUrl)
+
+      # Shortcut
+      response = Net::HTTP.get_response(uri)
+
+      # Will print response.body
+      Net::HTTP.get_print(uri)
+      @task = @list.tasks.new(:new => response.body)
     end
     if @task.save
         render :content_type  => "text/xml", :text => "<Response><Sms>Thanks for the memories</Sms></Response>"
