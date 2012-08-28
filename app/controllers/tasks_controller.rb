@@ -40,11 +40,7 @@ class TasksController < ApplicationController
       # Will print response.body
       Net::HTTP.get_print(uri)
     end
-    if @task.save
-        render :content_type  => "text/xml", :text => "<Response><Sms>Thanks for the memories</Sms></Response>"
-    else
-        render :content_type  => "text/xml", :text => "<Response><Sms>FUCK THIS SHIT</Sms></Response>"
-    end 
+    redirect_to(list_tasks_url(@list))
   end
   
 
