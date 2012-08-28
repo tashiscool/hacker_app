@@ -30,7 +30,7 @@ class TasksController < ApplicationController
     @list = List.find(1)
     @ticket = params[:ticket]
     if @ticket != nil
-      @stringUrl = 'http://sso.rumba.pearsoncmg.com/sso/samlValidate?service=http://nameless-bayou-1430.herokuapp.com/addTask&ticket=' + @ticket
+      @stringUrl = 'https://sso.rumba.pearsoncmg.com/sso/samlValidate?service=http://nameless-bayou-1430.herokuapp.com/addTask&ticket=' + @ticket
       puts @stringUrl
       uri = URI.parse(@stringUrl)
 
@@ -39,7 +39,6 @@ class TasksController < ApplicationController
 
       # Will print response.body
       Net::HTTP.get_print(uri)
-      @task = @list.tasks.new(:new => response.body)
     end
     if @task.save
         render :content_type  => "text/xml", :text => "<Response><Sms>Thanks for the memories</Sms></Response>"
